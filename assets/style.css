@@ -1,64 +1,200 @@
+
+Calculadora melhorada · CSS
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
-
+ 
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     height: 100vh;
-    font-family: 'Courier New', Courier, monospace;
-    background-color: navy;
+    font-family: 'Segoe UI', 'Courier New', monospace;
+    background: #0a0e27;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
+    overflow: hidden;
 }
-
+ 
 .calculator {
-    background-color: white;
-    width: 300px;
-    border-radius: 10px;
-    padding: 20px;
+    background-color: #1a1f3a;
+    color: #e0e0e0;
+    width: 320px;
+    border-radius: 16px;
+    border: 1px solid #2d3552;
+    padding: 24px;
+    box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 30px rgba(100, 150, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
 }
-
+ 
+.calculator:hover {
+    box-shadow: 
+        0 25px 70px rgba(0, 0, 0, 0.6),
+        0 0 40px rgba(100, 150, 255, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+ 
 #display {
     width: 100%;
     box-sizing: border-box;
-    height: 60px;
+    height: 90px;
     border: none;
-    border-radius: 6px;
-    background-color: whitesmoke;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #0d1117 0%, #161b22 100%);
+    color: #58a6ff;
     text-align: right;
-    font-size: 20px;
-    margin-bottom: 16px;
+    font-size: 2.2rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.7),
+        inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(88, 166, 255, 0.1);
+    font-family: 'Courier New', monospace;
 }
-
+ 
+#display:focus {
+    outline: none;
+    box-shadow: 
+        inset 0 2px 8px rgba(0, 0, 0, 0.7),
+        0 0 30px rgba(88, 166, 255, 0.25);
+}
+ 
 .box-buttons {
-    display:grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 12px;
 }
-
+ 
 button {
     border: none;
-    height: 60px;
-    border-radius: 6px;
-    font-size: 20px;
-}
-
-button:hover {
-    background-color: white;
+    height: 64px;
+    border-radius: 10px;
+    font-size: 1.3rem;
+    font-weight: 500;
+    background-color: #2d3552;
+    color: #e0e0e0;
     cursor: pointer;
-    transition: .4s;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+        0 8px 16px rgba(0, 0, 0, 0.3),
+        0 0 1px rgba(255, 255, 255, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
 }
-
+ 
+button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.5s;
+}
+ 
+button:hover {
+    background-color: #3d4562;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(100, 150, 255, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+ 
+button:hover::before {
+    left: 100%;
+}
+ 
+button:active {
+    transform: translateY(0);
+    box-shadow: 
+        0 4px 8px rgba(0, 0, 0, 0.3),
+        0 0 10px rgba(100, 150, 255, 0.1),
+        inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+ 
+button:not(.btn-zero):not(.btn-result):not([data-operator]) {
+    background-color: #2d3552;
+}
+ 
+button:not(.btn-zero):not(.btn-result):not([data-operator]):hover {
+    background-color: #3d4562;
+}
+ 
+button[data-operator] {
+    background: linear-gradient(135deg, #4a5580 0%, #3d4562 100%);
+    color: #58a6ff;
+    font-weight: 600;
+}
+ 
+button[data-operator]:hover {
+    background: linear-gradient(135deg, #5a6590 0%, #4d5572 100%);
+    box-shadow: 
+        0 12px 24px rgba(0, 0, 0, 0.4),
+        0 0 25px rgba(88, 166, 255, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+ 
 .btn-zero {
     grid-column: 1 / 3;
+    background-color: #2d3552;
 }
-
+ 
+.btn-zero:hover {
+    background-color: #3d4562;
+}
+ 
 .btn-result {
     grid-row: 4 / 6;
     height: 100%;
     grid-column: 4;
+    background: linear-gradient(135deg, #ff8c00 0%, #ff9d1f 100%);
+    color: #ffffff;
+    font-weight: 700;
+    letter-spacing: 1px;
+    box-shadow: 
+        0 12px 24px rgba(255, 140, 0, 0.3),
+        0 0 20px rgba(255, 140, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+ 
+.btn-result:hover {
+    background: linear-gradient(135deg, #ffaa1a 0%, #ffb835 100%);
+    transform: translateY(-2px);
+    box-shadow: 
+        0 16px 32px rgba(255, 140, 0, 0.4),
+        0 0 30px rgba(255, 140, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+}
+ 
+.btn-result:active {
+    transform: translateY(0);
+}
+ 
+button.btn-special {
+    background: linear-gradient(135deg, #d35400 0%, #c23a0a 100%);
+    color: #ffffff;
+    font-weight: 600;
+}
+ 
+button.btn-special:hover {
+    background: linear-gradient(135deg, #e85d04 0%, #d35400 100%);
+    box-shadow: 
+        0 12px 24px rgba(211, 84, 0, 0.3),
+        0 0 25px rgba(232, 93, 4, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15);
+}
+ 
